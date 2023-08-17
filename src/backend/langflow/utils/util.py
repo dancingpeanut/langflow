@@ -286,6 +286,16 @@ def format_dict(
 
         add_options_to_field(value, class_name, key)
 
+    if class_name == "LocalAI":
+        from langflow.interface.llms.custom import LocalAI
+        models = LocalAI.get_models()
+        dictionary["model_name"]["options"] = models
+        dictionary["model_name"]["list"] = True
+        dictionary["model_name"]["value"] = models[0]
+
+        dictionary.pop("openai_api_key", None)
+        dictionary.pop("openai_api_base", None)
+
     return dictionary
 
 

@@ -21,16 +21,24 @@ class OpenAIAPIKeyFormatter(FieldFormatter):
 
 
 class ModelSpecificFieldFormatter(FieldFormatter):
-    MODEL_DICT = {
-        "OpenAI": OPENAI_MODELS,
-        "ChatOpenAI": CHAT_OPENAI_MODELS,
-        "Anthropic": ANTHROPIC_MODELS,
-        "ChatAnthropic": ANTHROPIC_MODELS,
-    }
+    __model_dict = None
+
+    @property
+    def model_dict(self):
+        from langflow.interface.llms.custom import LocalAI
+        if ModelSpecificFieldFormatter.__model_dict is None:
+            ModelSpecificFieldFormatter.__model_dict = {
+                "OpenAI": OPENAI_MODELS,
+                "ChatOpenAI": CHAT_OPENAI_MODELS,
+                "Anthropic": ANTHROPIC_MODELS,
+                "ChatAnthropic": ANTHROPIC_MODELS,
+                "LocalAI": LocalAI.get_models()
+            }
+        return ModelSpecificFieldFormatter.__model_dict
 
     def format(self, field: TemplateField, name: Optional[str] = None) -> None:
-        if name in self.MODEL_DICT and field.name == "model_name":
-            field.options = self.MODEL_DICT[name]
+        if name in self.model_dict and field.name == "model_name":
+            field.options = self.model_dict[name]
             field.is_list = True
 
 

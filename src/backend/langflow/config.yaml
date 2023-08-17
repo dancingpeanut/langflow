@@ -123,6 +123,9 @@ llms:
     documentation: "https://python.langchain.com/docs/modules/model_io/models/llms/integrations/huggingface_hub"
   VertexAI:
     documentation: "https://python.langchain.com/docs/modules/model_io/models/llms/integrations/google_vertex_ai_palm"
+  LocalAI:
+    url: "http://192.168.1.171:23620/v1"
+    documentation: "http://192.168.1.171:23620/docs"
   ###
   # There's a bug in this component deactivating until we get it sorted: _language_models.py", line 804, in send_message
   #     is_blocked=safety_attributes.get("blocked", False),

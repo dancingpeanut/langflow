@@ -75,5 +75,9 @@ textsplitter_type_to_cls_dict: dict[str, Any] = dict(
     inspect.getmembers(text_splitter, inspect.isclass)
 )
 
+from langflow.interface.llms.custom import CUSTOM_LLMS, LocalAI
+
 # merge CUSTOM_AGENTS and CUSTOM_CHAINS
-CUSTOM_NODES = {**CUSTOM_AGENTS, **CUSTOM_CHAINS}  # type: ignore
+CUSTOM_NODES = {**CUSTOM_AGENTS, **CUSTOM_CHAINS, **CUSTOM_LLMS}  # type: ignore
+
+llm_type_to_cls_dict['localai'] = LocalAI

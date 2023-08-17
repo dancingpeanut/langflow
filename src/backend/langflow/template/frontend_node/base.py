@@ -170,11 +170,13 @@ class FrontendNode(BaseModel):
         field: TemplateField, key: str, name: Optional[str] = None
     ) -> None:
         """Handles specific field values related to models."""
+        from langflow.interface.llms.custom import LocalAI
         model_dict = {
             "OpenAI": constants.OPENAI_MODELS,
             "ChatOpenAI": constants.CHAT_OPENAI_MODELS,
             "Anthropic": constants.ANTHROPIC_MODELS,
             "ChatAnthropic": constants.ANTHROPIC_MODELS,
+            "LocalAI": LocalAI.get_models(),
         }
         if name in model_dict and key == "model_name":
             field.options = model_dict[name]
